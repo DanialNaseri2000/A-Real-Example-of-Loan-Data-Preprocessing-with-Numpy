@@ -66,10 +66,14 @@ for i in range(13):
                                      i,
                                      loan_data_string[:,0])
 
+#Loan Status
+status_bad = np.array(['Charged Off',
+                      'Default',
+                      'Late (31-120 days)'])
 
-
-
-
+loan_data_string[:,1] = np.where(np.isin(loan_data_string[:,1] , status_bad), 
+                                 0,
+                                 1)
 
 
 
