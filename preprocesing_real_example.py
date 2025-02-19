@@ -74,7 +74,13 @@ status_bad = np.array(['Charged Off',
 loan_data_string[:,1] = np.where(np.isin(loan_data_string[:,1] , status_bad), 
                                  0,
                                  1)
+#Term
+header_string = "term_months"
+loan_data_string[:,2] = np.char.strip(loan_data_string[:,2], " months")
 
+loan_data_string[:,2] = np.where(loan_data_string[:,2] == '',
+                                 '60',
+                                 loan_data_string[:,2])
 
 
 
