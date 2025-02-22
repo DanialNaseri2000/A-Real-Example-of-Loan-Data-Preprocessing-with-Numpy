@@ -100,15 +100,18 @@ header_string = np.delete(header_string, 3)
 
 #####Coinverting Sub Grade
 keys = list(np.unique(loan_data_string[:,3]))
-values = list(range(1, np.unique(loan_data_string[:,3]) + 1))
+values = list(range(1, np.unique(loan_data_string[:,3]).shape[0] + 1))
 dict_sub_grade = dict(zip(keys,values))
 for i in np.unique(loan_data_string[:,3]):
     loan_data_string[:,3] = np.where(loan_data_string[:,3] == i,
                                      dict_sub_grade[i],
                                      loan_data_string[:,3])
+    
 
 
-
+loan_data_string[:,4] = np.where((loan_data_string[:,4] == '') | (loan_data_string[:,4] == 'Not Verified'), 
+                                 0,
+                                 1)
 
 
 
