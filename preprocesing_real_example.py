@@ -113,7 +113,10 @@ loan_data_string[:,4] = np.where((loan_data_string[:,4] == '') | (loan_data_stri
                                  0,
                                  1)
 
-
+#URL
+loan_data_string[:,5] = np.char.strip(loan_data_string[:,5],"https://www.lendingclub.com/browse/loanDetail.action?loan_id=")
+loan_data_string = np.delete(loan_data_string, 5,axis = 1)
+header_string = np.delete(header_string, 5)
 
 
 
