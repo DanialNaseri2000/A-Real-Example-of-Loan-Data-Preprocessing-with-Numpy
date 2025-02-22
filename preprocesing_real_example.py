@@ -75,23 +75,37 @@ loan_data_string[:,1] = np.where(np.isin(loan_data_string[:,1] , status_bad),
                                  0,
                                  1)
 #Term
-header_string = "term_months"
+header_string[2] = "term_months"
 loan_data_string[:,2] = np.char.strip(loan_data_string[:,2], " months")
 
 loan_data_string[:,2] = np.where(loan_data_string[:,2] == '',
                                  '60',
                                  loan_data_string[:,2])
 
+#Grade and Subgrate
+##Filling  empty Sub Grate with the most appropriate alternative in Grade + '5'
+for i in np.unique(loan_data_string[:,3])[1:]:
+    loan_data_string[:,4] = np.where((loan_data_string[:,4] == '') & (loan_data_string[:,3] == i),
+                                    i + '5',
+                                    loan_data_string[:,4])
 
+###we still see an empty space at the start
+loan_data_string[:,4] = np.where(loan_data_string[:,4] == '',
+                                 'H1',
+                                 loan_data_string[:,4])
 
+####Removing Grade 
+loan_data_string = np.delete(loan_data_string, 3, axis= 1)
+header_string = np.delete(header_string, 3)
 
-
-
-
-
-
-
-
+#####Coinverting Sub Grade
+keys = list(np.unique(loan_data_string[:,3]))
+values = list(range(1, np.unique(loan_data_string[:,3]) + 1))
+dict_sub_grade = dict(zip(keys,values))
+for i in np.unique(loan_data_string[:,3]):
+    loan_data_string[:,3] = np.where(loan_data_string[:,3] == i,
+                                     dict_sub_grade[i],
+                                     loan_data_string[:,3])
 
 
 
